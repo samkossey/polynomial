@@ -9,8 +9,12 @@ using namespace std;
 
 //checks if the string entered fits a long friendly format
 bool isNumber(string aString){
-    regex integer("(\\+)?[0-9]+", regex_constants::extended);
-    return regex_match(aString,integer);
+    try{
+        regex integer("(\\+)?[0-9]+", regex_constants::extended);
+        return regex_match(aString,integer);
+    } catch (regex_error const &e){
+        throw runtime_error("Regex Failed, Did you compile with g++ >= v4.9?");
+    }
 }
 
 //takes in a list of string and returns a list of long consisting of the
@@ -18,12 +22,10 @@ bool isNumber(string aString){
 list<long> stringToLong(list<string> stringList){
     list<long> result;
     for (list<string>::iterator i = stringList.begin(); i != stringList.end(); i++){
-        long temp;
         if(isNumber(*i)){
-            temp = atol(i->c_str());
-            result.push_back(temp);
+            result.push_back(atol(i->c_str())); //although atol is an insecure function, we make sure the input is valid via regex
         } else {
-            throw invalid_argument( "Received an invalid string" );
+            throw runtime_error( "Received string is not a valid long" );
         }
     }
     return result;

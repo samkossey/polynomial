@@ -38,7 +38,7 @@ class File {
             if (text.length() > 0){
                 text.pop_back(); //take of the trailing space
             } else {
-                throw invalid_argument("Couldn't Read File or Empty File");
+                throw runtime_error("Couldn't Read File or Empty File");
             }
             inFile.close();
             return text;

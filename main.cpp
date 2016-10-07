@@ -11,6 +11,22 @@
 using namespace std;
 
 int main(int argc, char** argv){
+    if (argc == 1){
+        cout << argv[0] << " file1 file2" << endl << endl;
+        cout << "Description:" << endl;
+        cout << "   Adds two polynomials from file and prints the result" << endl << endl;
+        cout << "Parameter List:" << endl;
+        cout << "   file1       Specifies the first file containing a polynomial" << endl << endl;
+        cout << "   file2       Specifies the second file containing a polynomial" << endl << endl;
+        cout << "NOTE: Files should contains a single line with the number format [degree n] [nth term] [n-1th term} ... [1st term]" << endl << endl;
+        cout << "Examples:" << endl;
+        cout << "   " << argv[0] << " file1.txt file2.txt" << endl;
+        cout << "   " << "file1.txt: 2 1 2" << endl;
+        cout << "   " << "file2.txt: 4 3 2 1 1" << endl;
+        cout << "   " << "output: 4 3 2 2 3" << endl;
+        
+        return 1;
+    }
     try{
         if(argc > 3) {
             //TODO: Code for more arguments
@@ -53,7 +69,15 @@ int main(int argc, char** argv){
         }
     } catch (invalid_argument const &e){
         cout << "Argument Error: " << e.what() << endl;
+        return 1;
     } catch (bad_alloc const &e){
         cout << "Memory Error: " << e.what() << endl;
+        return 2;
+    } catch (runtime_error const &e){
+        cout << "Runtime Error: " << e.what() << endl;
+        return 3;
+    } catch (exception const &e){
+        cout << "Other Error: " << e.what() << endl;
+        return 4;
     }
 }
